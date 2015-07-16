@@ -1,25 +1,38 @@
 package com {
+	import flash.display.MovieClip;
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.KeyboardEvent;
 	
 	public class Main extends Sprite {
-		const STAGE_HEIGHT:uint = 400;
-		const GRAVITY:Number = 0.5;
-		const SPEED:Number = 0.2;
-		const X_VELOCITY_CAP:uint = 8;
-		const Y_VELOCITY_CAP:uint = 10;
+		private const STAGE_HEIGHT:uint = 600;
+		private const GRAVITY:Number = 0.5;
+		private const SPEED:Number = 0.2;
+		private const X_VELOCITY_CAP:uint = 8;
+		private const Y_VELOCITY_CAP:uint = 10;
 		
-		var leftPressed:Boolean = false;
-		var rightPressed:Boolean = false;
-		var grounded:Boolean = false;
-		var slowing:Boolean = false;
-		var xVelocity:Number = 0;
-		var yVelocity:Number = 0;
+		private var guy:MovieClip;
+		private var leftPressed:Boolean = false;
+		private var rightPressed:Boolean = false;
+		private var grounded:Boolean = false;
+		private var slowing:Boolean = false;
+		private var xVelocity:Number = 0;
+		private var yVelocity:Number = 0;
 		
 		public function Main() {
 			super();
+			createGuy();
 			addEventListener(Event.ADDED_TO_STAGE, addListeners);
+		}
+		
+		private function createGuy():void {
+			guy = new MovieClip();
+			guy.graphics.beginFill(0xDD0000);
+			guy.graphics.drawRect(0, 0, 40, 40);
+			guy.graphics.endFill();
+			guy.x = 200;
+			guy.y = 50;
+			addChild(guy);
 		}
 		
 		private function addListeners(e:Event):void {
@@ -29,7 +42,7 @@ package com {
 			stage.addEventListener(KeyboardEvent.KEY_UP, registerKeyup);
 		}
 		
-		function tick(event:Event):void {
+		private function tick(event:Event):void {
 			if(guyWillLand())
 				landHim();
 			calculateVelocity();
@@ -38,23 +51,23 @@ package com {
 			guy.y += yVelocity;
 		}
 		
-		function landHim():void {
+		private function landHim():void {
 			guy.y = STAGE_HEIGHT - guy.height;
 			grounded = true;
 			yVelocity = 0;
 			stopIfTurning();
 		}
 		
-		function stopIfTurning():void {
+		private function stopIfTurning():void {
 			if((xVelocity > 0 && leftPressed) || (xVelocity < 0 && rightPressed) || (!leftPressed && !rightPressed))
 				stopHim();
 		}
 		
-		function guyWillLand():Boolean {
+		private function guyWillLand():Boolean {
 			return guy.y + guy.height + yVelocity >= STAGE_HEIGHT;
 		}
 		
-		function calculateVelocity():void {
+		private function calculateVelocity():void {
 			if(!grounded)
 				yVelocity += GRAVITY;
 			if(leftPressed && xVelocity >= -X_VELOCITY_CAP)
@@ -65,14 +78,14 @@ package com {
 				xVelocity /= 1.2;
 		}
 		
-		function stopSlowingIfMotionless():void {
+		private function stopSlowingIfMotionless():void {
 			if(slowing && Math.abs(xVelocity) < 0.1) {
 				slowing = false;
 				xVelocity = 0;
 			}
 		}
 		
-		function registerKeydown(event:KeyboardEvent):void {
+		private function registerKeydown(event:KeyboardEvent):void {
 			switch(event.keyCode) {
 				case 37:
 					leftPressed = true;
@@ -83,7 +96,7 @@ package com {
 			}
 		}
 		
-		function registerKeyup(event:KeyboardEvent):void {
+		private function registerKeyup(event:KeyboardEvent):void {
 			switch(event.keyCode) {
 				case 37:
 					if(grounded)
@@ -101,11 +114,11 @@ package com {
 			}
 		}
 		
-		function stopHim():void {
+		private function stopHim():void {
 			slowing = true;
 		}
 		
-		function jump():void {
+		private function jump():void {
 			grounded = false;
 			yVelocity = -10;
 		}
