@@ -5,11 +5,17 @@ package com {
 	import flash.events.KeyboardEvent;
 	
 	public class Main extends Sprite {
-		private const STAGE_HEIGHT:uint = 600;
-		private const GRAVITY:Number = 0.5;
-		private const SPEED:Number = 0.2;
-		private const X_VELOCITY_CAP:uint = 8;
-		private const Y_VELOCITY_CAP:uint = 10;
+		static public const STAGE_HEIGHT:uint = 600;
+		static public const GRAVITY:Number = 0.5;
+		static public const SPEED:Number = 0.2;
+		static public const X_VELOCITY_CAP:uint = 8;
+		static public const Y_VELOCITY_CAP:uint = 10;
+		
+		static public const GUY_WIDTH:uint = 40;
+		static public const GUY_HEIGHT:uint = 40;
+		static public const GUY_STARTING_X:uint = 200;
+		static public const GUY_STARTING_Y:uint = 50;
+		static public const RED:uint = 0xDD0000;
 		
 		private var guy:MovieClip;
 		private var leftPressed:Boolean = false;
@@ -37,16 +43,16 @@ package com {
 		}
 		
 		private function runTests():void {
-			new Tests(this, stage).run();
+			new Tests(this, stage).runAll();
 		}
 		
 		private function createGuy():void {
 			guy = new MovieClip();
-			guy.graphics.beginFill(0xDD0000);
-			guy.graphics.drawRect(0, 0, 40, 40);
+			guy.graphics.beginFill(RED);
+			guy.graphics.drawRect(0, 0, GUY_WIDTH, GUY_HEIGHT);
 			guy.graphics.endFill();
-			guy.x = 200;
-			guy.y = 50;
+			guy.x = GUY_STARTING_X;
+			guy.y = GUY_STARTING_Y;
 			addChild(guy);
 		}
 		
