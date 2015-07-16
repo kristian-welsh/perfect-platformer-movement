@@ -43,7 +43,7 @@ package com {
 		}
 		
 		private function tick(event:Event):void {
-			if(guyWillLand())
+			if (guyWillLand())
 				landHim();
 			calculateVelocity();
 			stopSlowingIfMotionless();
@@ -59,7 +59,7 @@ package com {
 		}
 		
 		private function stopIfTurning():void {
-			if((xVelocity > 0 && leftPressed) || (xVelocity < 0 && rightPressed) || (!leftPressed && !rightPressed))
+			if ((xVelocity > 0 && leftPressed) || (xVelocity < 0 && rightPressed) || (!leftPressed && !rightPressed))
 				stopHim();
 		}
 		
@@ -68,49 +68,49 @@ package com {
 		}
 		
 		private function calculateVelocity():void {
-			if(!grounded)
+			if (!grounded)
 				yVelocity += GRAVITY;
-			if(leftPressed && xVelocity >= -X_VELOCITY_CAP)
+			if (leftPressed && xVelocity >= -X_VELOCITY_CAP)
 				xVelocity -= SPEED;
-			if(rightPressed && xVelocity <= X_VELOCITY_CAP)
+			if (rightPressed && xVelocity <= X_VELOCITY_CAP)
 				xVelocity += SPEED;
-			if(slowing)
+			if (slowing)
 				xVelocity /= 1.2;
 		}
 		
 		private function stopSlowingIfMotionless():void {
-			if(slowing && Math.abs(xVelocity) < 0.1) {
+			if (slowing && Math.abs(xVelocity) < 0.1) {
 				slowing = false;
 				xVelocity = 0;
 			}
 		}
 		
 		private function registerKeydown(event:KeyboardEvent):void {
-			switch(event.keyCode) {
-				case 37:
-					leftPressed = true;
-					break;
-				case 39:
-					rightPressed = true;
-					break;
+			switch (event.keyCode) {
+			case 37: 
+				leftPressed = true;
+				break;
+			case 39: 
+				rightPressed = true;
+				break;
 			}
 		}
 		
 		private function registerKeyup(event:KeyboardEvent):void {
-			switch(event.keyCode) {
-				case 37:
-					if(grounded)
-						stopHim();
-					leftPressed = false;
-					break;
-				case 38:
-					jump();
-					break;
-				case 39:
-					if(grounded)
-						stopHim();
-					rightPressed = false;
-					break;
+			switch (event.keyCode) {
+			case 37: 
+				if (grounded)
+					stopHim();
+				leftPressed = false;
+				break;
+			case 38: 
+				jump();
+				break;
+			case 39: 
+				if (grounded)
+					stopHim();
+				rightPressed = false;
+				break;
 			}
 		}
 		
