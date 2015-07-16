@@ -21,8 +21,23 @@ package com {
 		
 		public function Main() {
 			super();
+			if (stage)
+				start();
+			else
+				addEventListener(Event.ADDED_TO_STAGE, start);
+		}
+		
+		private function start(e:Event = null):void {
+			removeEventListener(Event.ADDED_TO_STAGE, start);
 			createGuy();
-			addEventListener(Event.ADDED_TO_STAGE, addListeners);
+			stage.addEventListener(Event.ENTER_FRAME, tick);
+			stage.addEventListener(KeyboardEvent.KEY_DOWN, registerKeydown);
+			stage.addEventListener(KeyboardEvent.KEY_UP, registerKeyup);
+			runTests();
+		}
+		
+		private function runTests():void {
+			new Tests(this, stage).run();
 		}
 		
 		private function createGuy():void {
@@ -35,14 +50,7 @@ package com {
 			addChild(guy);
 		}
 		
-		private function addListeners(e:Event):void {
-			removeEventListener(Event.ADDED_TO_STAGE, addListeners);
-			stage.addEventListener(Event.ENTER_FRAME, tick);
-			stage.addEventListener(KeyboardEvent.KEY_DOWN, registerKeydown);
-			stage.addEventListener(KeyboardEvent.KEY_UP, registerKeyup);
-		}
-		
-		private function tick(event:Event):void {
+		private function tick(event:Event = null):void {
 			if (guyWillLand())
 				landHim();
 			calculateVelocity();
