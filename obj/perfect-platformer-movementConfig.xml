@@ -16,7 +16,7 @@
     </define>
     <define append="true">
       <name>CONFIG::timeStamp</name>
-      <value>'16/07/2015'</value>
+      <value>'17/07/2015'</value>
     </define>
     <define append="true">
       <name>CONFIG::air</name>
@@ -33,12 +33,13 @@
     <omit-trace-statements>true</omit-trace-statements>
     <verbose-stacktraces>false</verbose-stacktraces>
     <source-path append="true">
-      <path-element>C:\Users\Kristian Welsh\Documents\Projects\Programming\ActionScript\perfect-platformer-movement\src</path-element>
+      <path-element>C:\Users\Hiccup\Projects\Programming\Actionscript\Current\perfect-platformer-movement\src</path-element>
+      <path-element>C:\Users\Hiccup\AppData\Local\FlashDevelop\Library</path-element>
       <path-element>C:\Program Files (x86)\FlashDevelop\Library\AS3\classes</path-element>
     </source-path>
   </compiler>
   <file-specs>
-    <path-element>C:\Users\Kristian Welsh\Documents\Projects\Programming\ActionScript\perfect-platformer-movement\src\com\Main.as</path-element>
+    <path-element>C:\Users\Hiccup\Projects\Programming\Actionscript\Current\perfect-platformer-movement\src\com\Main.as</path-element>
   </file-specs>
   <default-background-color>#FFFEE6</default-background-color>
   <default-frame-rate>120</default-frame-rate>
