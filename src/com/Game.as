@@ -59,6 +59,10 @@ package com {
 			guy.y += yVelocity;
 		}
 		
+		private function guyWillLand():Boolean {
+			return guy.y + guy.height + yVelocity >= STAGE_HEIGHT;
+		}
+		
 		private function landHim():void {
 			guy.y = STAGE_HEIGHT - guy.height;
 			grounded = true;
@@ -69,10 +73,6 @@ package com {
 		private function stopIfTurning():void {
 			if ((xVelocity > 0 && leftPressed) || (xVelocity < 0 && rightPressed) || (!leftPressed && !rightPressed))
 				stopHim();
-		}
-		
-		private function guyWillLand():Boolean {
-			return guy.y + guy.height + yVelocity >= STAGE_HEIGHT;
 		}
 		
 		private function calculateVelocity():void {

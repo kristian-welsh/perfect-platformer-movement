@@ -12,28 +12,33 @@ package com {
 		
 		public function GameTest(testMethod:String = null) {
 			super([
-				testGuyAddedCorrectly,
-				testTickDropGuy,
-				testBottomOfStageStopsGuyFalling
+				test_guy_added_correctly,
+				test_tick_drop_guy,
+				test_touching_bottom_stage_stops_guy_falling,
+				test_just_above_bottom_stage_at_start_stops_guy_falling,
+				test_just_above_bottom_stage_after_acceleration_stops_guy_falling,
+				test_above_bottom_stage_guy_keeps_falling
 				], testMethod);
 		}
 		
 		override protected function setUp():void {
 			container = new MovieClip();
 			game = new Game();
+			
 			container.addChild(game);
 			game.startGame();
+			
 			guy = game.getChildAt(0);
 		}
 		
 		// don't test purely graphical stuff.
-		public function testGuyAddedCorrectly():void {
+		public function test_guy_added_correctly():void {
 			assertEquals(1, game.numChildren);
 			assertEquals(200, guy.x);
 			assertEquals(50, guy.y);
 		}
 		
-		public function testTickDropGuy():void {
+		public function test_tick_drop_guy():void {
 			// y increases by previous increase + .5 each tick
 			assertEquals(50, guy.y);
 			tick();
@@ -44,11 +49,27 @@ package com {
 			assertEquals(53, guy.y);
 		}
 		
-		//  unfinished, no edge cases.
-		public function testBottomOfStageStopsGuyFalling():void {
-			guy.y = Game.STAGE_HEIGHT - Game.GUY_HEIGHT + 123;
-			tick();
-			assertGuyLanded();
+		public function test_touching_bottom_stage_stops_guy_falling():void {
+			groundSnapsCorrectlyFor(0);
+		}
+		
+		public function test_just_above_bottom_stage_at_start_stops_guy_falling():void {
+			groundSnapsCorrectlyFor(- Game.GRAVITY);
+		}
+		
+		public function test_just_above_bottom_stage_after_acceleration_stops_guy_falling():void {
+			groundSnapsCorrectlyFor(- Game.GRAVITY - Game.GRAVITY * 2, true, 2);
+		}
+		
+		public function test_above_bottom_stage_guy_keeps_falling():void {
+			groundSnapsCorrectlyFor(- Game.GRAVITY - 0.00001, false);
+		}
+		
+		private function groundSnapsCorrectlyFor(pos:Number, shouldLand:Boolean = true, numTicks:uint = 1):void {
+			guy.y = Game.STAGE_HEIGHT - Game.GUY_HEIGHT + pos;
+			for (var i = 0; i < numTicks; i++)
+				tick();
+			(shouldLand) ? assertGuyLanded() : assertGuyNotLanded();
 		}
 		
 		private function tick():void {
