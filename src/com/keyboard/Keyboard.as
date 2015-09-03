@@ -3,7 +3,11 @@ package com.keyboard {
 	import flash.events.KeyboardEvent;
 	
 	public class Keyboard {
-		static private const EMPTY_OBJECT = {};
+		static private const EMPTY_OBJECT:Object = {};
+		
+		static public const LEFT:uint = 37;
+		static public const UP:uint = 38;
+		static public const RIGHT:uint = 39;
 		
 		private var context:EventDispatcher;
 		public var keys:Object;

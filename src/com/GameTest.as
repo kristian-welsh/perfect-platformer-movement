@@ -66,7 +66,7 @@ package com {
 		}
 		
 		private function groundSnapsCorrectlyFor(pos:Number, shouldLand:Boolean = true, numTicks:uint = 1):void {
-			guy.y = Game.STAGE_HEIGHT - Game.GUY_HEIGHT + pos;
+			guy.y = Game.STAGE_HEIGHT - Guy.HEIGHT + pos;
 			for (var i:uint = 0; i < numTicks; i++)
 				tick();
 			(shouldLand) ? assertGuyLanded() : assertGuyNotLanded();
@@ -77,11 +77,11 @@ package com {
 		}
 		
 		private function assertGuyLanded():void {
-			assertEquals(Game.STAGE_HEIGHT - Game.GUY_HEIGHT, guy.y);
+			assertEquals(Game.STAGE_HEIGHT - Guy.HEIGHT, guy.y);
 		}
 		
 		private function assertGuyNotLanded():void {
-			if (Game.STAGE_HEIGHT - Game.GUY_HEIGHT == guy.y)
+			if (Game.STAGE_HEIGHT - Guy.HEIGHT == guy.y)
 				fail("aaaaand you fail");
 		}
 	}
