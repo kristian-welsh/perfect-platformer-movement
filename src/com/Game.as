@@ -72,7 +72,7 @@ package com {
 		
 		private function stopIfTurning():void {
 			if ((xVelocity > 0 && leftPressed) || (xVelocity < 0 && rightPressed) || (!leftPressed && !rightPressed))
-				stopHim();
+				startSlowing();
 		}
 		
 		private function calculateVelocity():void {
@@ -88,9 +88,13 @@ package com {
 		
 		private function stopSlowingIfMotionless():void {
 			if (slowing && Math.abs(xVelocity) < 0.1) {
-				slowing = false;
-				xVelocity = 0;
+				stopSlowing();
 			}
+		}
+		
+		private function stopSlowing():void {
+			slowing = false;
+			xVelocity = 0;
 		}
 		
 		private function registerKeydown(event:KeyboardEvent):void {
@@ -108,7 +112,7 @@ package com {
 			switch (event.keyCode) {
 				case 37:
 					if (grounded)
-						stopHim();
+						startSlowing();
 					leftPressed = false;
 					break;
 				case 38:
@@ -116,13 +120,13 @@ package com {
 					break;
 				case 39:
 					if (grounded)
-						stopHim();
+						startSlowing();
 					rightPressed = false;
 					break;
 			}
 		}
 		
-		private function stopHim():void {
+		private function startSlowing():void {
 			slowing = true;
 		}
 		

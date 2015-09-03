@@ -67,7 +67,7 @@ package com {
 		
 		private function groundSnapsCorrectlyFor(pos:Number, shouldLand:Boolean = true, numTicks:uint = 1):void {
 			guy.y = Game.STAGE_HEIGHT - Game.GUY_HEIGHT + pos;
-			for (var i = 0; i < numTicks; i++)
+			for (var i:uint = 0; i < numTicks; i++)
 				tick();
 			(shouldLand) ? assertGuyLanded() : assertGuyNotLanded();
 		}
