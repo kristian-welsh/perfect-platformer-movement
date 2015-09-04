@@ -5,6 +5,7 @@ package com {
 	import flash.display.Sprite;
 	import flash.events.Event;
 	import flash.events.KeyboardEvent;
+	import org.flashdevelop.utils.FlashConnect;
 	
 	public class Game extends Sprite {
 		static public const STAGE_HEIGHT:uint = 600;
@@ -48,8 +49,8 @@ package com {
 			landIfCloseToGround();
 			jumpIfNeeded();
 			slowIfNotMoving();
-			calculateVelocity();
 			stopSlowingIfMotionless();
+			calculateVelocity();
 			
 			guy.x += xVelocity;
 			guy.y += yVelocity;
@@ -84,8 +85,12 @@ package com {
 		}
 		
 		private function stopIfTurning():void {
-			if ((xVelocity > 0 && leftPressed()) || (xVelocity < 0 && rightPressed()) || (!leftPressed() && !rightPressed()))
+			if (shouldBeSlowing())
 				startSlowing();
+		}
+		
+		private function shouldBeSlowing():Boolean {
+			return (xVelocity > 0 && leftPressed()) || (xVelocity < 0 && rightPressed()) || (!leftPressed() && !rightPressed());
 		}
 		
 		private function calculateVelocity():void {
@@ -100,9 +105,8 @@ package com {
 		}
 		
 		private function stopSlowingIfMotionless():void {
-			if (slowing && Math.abs(xVelocity) < 0.1) {
+			if (slowing && (Math.abs(xVelocity) < 0.1 || leftPressed() || rightPressed()) && !(leftPressed() && rightPressed()))
 				stopSlowing();
-			}
 		}
 		
 		private function stopSlowing():void {
