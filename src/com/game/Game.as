@@ -1,4 +1,5 @@
-package com {
+package com.game {
+	import com.guy.GuyView;
 	import com.keyboard.Keyboard;
 	import com.tests.Tests;
 	import flash.display.MovieClip;
@@ -29,7 +30,7 @@ package com {
 		}
 		
 		private function createGuy():void {
-			guy = new Guy();
+			guy = new GuyView();
 			addChild(guy);
 		}
 		

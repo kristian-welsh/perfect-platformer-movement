@@ -1,4 +1,5 @@
 package com {
+	import com.game.Game;
 	import com.tests.Tests;
 	import flash.display.Sprite;
 	import flash.display.Stage;

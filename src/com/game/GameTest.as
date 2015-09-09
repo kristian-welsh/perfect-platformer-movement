@@ -1,4 +1,6 @@
-package com {
+package com.game {
+	import com.game.Game;
+	import com.guy.GuyView;
 	import flash.display.DisplayObject;
 	import flash.display.DisplayObjectContainer;
 	import flash.display.MovieClip;
@@ -66,7 +68,7 @@ package com {
 		}
 		
 		private function groundSnapsCorrectlyFor(pos:Number, shouldLand:Boolean = true, numTicks:uint = 1):void {
-			guy.y = Game.STAGE_HEIGHT - Guy.HEIGHT + pos;
+			guy.y = Game.STAGE_HEIGHT - GuyView.HEIGHT + pos;
 			for (var i:uint = 0; i < numTicks; i++)
 				tick();
 			(shouldLand) ? assertGuyLanded() : assertGuyNotLanded();
@@ -77,11 +79,11 @@ package com {
 		}
 		
 		private function assertGuyLanded():void {
-			assertEquals(Game.STAGE_HEIGHT - Guy.HEIGHT, guy.y);
+			assertEquals(Game.STAGE_HEIGHT - GuyView.HEIGHT, guy.y);
 		}
 		
 		private function assertGuyNotLanded():void {
-			if (Game.STAGE_HEIGHT - Guy.HEIGHT == guy.y)
+			if (Game.STAGE_HEIGHT - GuyView.HEIGHT == guy.y)
 				fail("aaaaand you fail");
 		}
 	}

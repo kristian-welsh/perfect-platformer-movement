@@ -1,5 +1,5 @@
 package com.tests {
-	import com.GameTest;
+	import com.game.GameTest;
 	import com.keyboard.KeyboardTest;
 	import kris.test.TestSuiteCollector;
 	
