@@ -52,9 +52,7 @@ package com.game {
 			slowIfNotMoving();
 			stopSlowingIfMotionless();
 			calculateVelocity();
-			
-			guy.x += xVelocity;
-			guy.y += yVelocity;
+			repositionGuy();
 		}
 		
 		private function landIfCloseToGround():void {
@@ -122,6 +120,11 @@ package com.game {
 		private function jump():void {
 			grounded = false;
 			yVelocity = -10;
+		}
+		
+		private function repositionGuy():void {
+			guy.x += xVelocity;
+			guy.y += yVelocity;
 		}
 	}
 }
